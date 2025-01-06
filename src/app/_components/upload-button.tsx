@@ -1,13 +1,16 @@
 "use client";
 
 import { UploadButton } from "~/utils/uploadthing";
-import uploadImage from "../actions/upload-image";
+import { useRouter } from "next/navigation";
 
 export default function UploadButtonComponent() {
+  const router = useRouter();
   return (
     <UploadButton
       endpoint="imageUploader"
-      onClientUploadComplete={uploadImage}
+      onClientUploadComplete={() => {
+        router.refresh();
+      }}
       onUploadError={(error: Error) => {
         // Do something with the error.
         alert(`ERROR! ${error.message}`);
