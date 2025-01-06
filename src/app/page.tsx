@@ -1,4 +1,5 @@
 import { db } from "~/server/db";
+import UploadButtonComponent from "./_components/upload-button";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +25,7 @@ export default async function HomePage() {
           </div>
         ))}
       </div>
+      <UploadButtonComponent />
     </main>
   );
 }
