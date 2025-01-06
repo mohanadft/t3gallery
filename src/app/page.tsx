@@ -1,13 +1,12 @@
 import { db } from "~/server/db";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Image from "next/image";
+import { getMyImages } from "~/server/queries";
 
 export const dynamic = "force-dynamic";
 
 async function Images() {
-  const images = await db.query.images.findMany({
-    orderBy: (model, { desc }) => desc(model.id),
-  });
+  const images = await getMyImages();
 
   return (
     <>
@@ -21,8 +20,8 @@ async function Images() {
               src={image.url}
               alt={image.name}
               className="h-44 w-44 object-cover"
-              width="176"
-              height="176"
+              width={200}
+              height={200}
             />
 
             <div>{image.name}</div>
