@@ -1,14 +1,18 @@
+import Image from "next/image";
 import { db } from "~/server/db";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const posts = await db.query.posts.findMany();
+  const images = await db.query.images.findMany();
 
   return (
     <main className="p-4">
-      {posts.map((post) => (
-        <div key={post.id}>{post.name}</div>
+      {images.map((image, index) => (
+        <div key={image.id + "-" + index} className="flex w-48 flex-col">
+          <Image src={image.url} alt={image.name} />
+          <div>{image.name}</div>
+        </div>
       ))}
     </main>
   );
