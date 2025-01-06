@@ -1,7 +1,13 @@
-export default function HomePage() {
+import { db } from "~/server/db";
+
+export default async function HomePage() {
+  const posts = await db.query.posts.findMany();
+
   return (
     <main className="p-4">
-      <h1>Testing</h1>
+      {posts.map((post) => (
+        <div key={post.id}>{post.name}</div>
+      ))}
     </main>
   );
 }
