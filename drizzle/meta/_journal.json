@@ -15,6 +15,13 @@
       "when": 1736156537812,
       "tag": "0001_easy_kulan_gath",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1736196820969,
+      "tag": "0002_married_epoch",
+      "breakpoints": true
     }
   ]
 }

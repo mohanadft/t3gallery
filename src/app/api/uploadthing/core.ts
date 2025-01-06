@@ -17,13 +17,14 @@ export const ourFileRouter = {
        * @see https://docs.uploadthing.com/file-routes#route-config
        */
       maxFileSize: "8MB",
-      maxFileCount: 1,
+      maxFileCount: 40,
     },
   })
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
-      const user = await auth(req);
+      const user = auth(req);
+      console.log(req);
 
       // If you throw, the user will not be able to upload
       if (!user) throw new UploadThingError("Unauthorized");
@@ -32,13 +33,11 @@ export const ourFileRouter = {
       return { userId: user.id };
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      // This code RUNS ON YOUR SERVER after upload
-      console.log("Upload complete for userId:", metadata.userId);
-
       console.log("file url", file.url);
       await db.insert(images).values({
         name: Math.random().toString(36).slice(2, 5) + file.name,
         url: file.url,
+        userId: metadata.userId,
       });
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback

@@ -1,6 +1,6 @@
 import { db } from "~/server/db";
-import UploadButtonComponent from "./_components/upload-button";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -12,21 +12,23 @@ async function Images() {
   return (
     <>
       <div className="flex flex-wrap gap-4">
-        {[...images, ...images, ...images].map((image, index) => (
+        {images.map((image, index) => (
           <div
             key={image.id + "-" + index}
             className="flex w-48 flex-col items-center"
           >
-            <img
+            <Image
               src={image.url}
               alt={image.name}
               className="h-44 w-44 object-cover"
+              width="176"
+              height="176"
             />
+
             <div>{image.name}</div>
           </div>
         ))}
       </div>
-      <UploadButtonComponent />
     </>
   );
 }
