@@ -1,4 +1,3 @@
-import { db } from "~/server/db";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Image from "next/image";
 import { getMyImages } from "~/server/queries";
@@ -19,7 +18,7 @@ async function Images() {
             <Image
               src={image.url}
               alt={image.name}
-              className="h-44 w-44 object-cover"
+              className="object-cover"
               width={200}
               height={200}
             />
